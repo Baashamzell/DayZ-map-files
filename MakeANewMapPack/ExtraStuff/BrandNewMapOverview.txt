@@ -1,0 +1,147 @@
+--------------------------------------============================----------------------------------------
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -------------------------- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> How to make a map for DayZ <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> A complete guide for maps. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>    Overview & References   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+--------------------------------------============================----------------------------------------
+Though created by me this guide would not be possible without the tutorials and information provided by:
+	-Dany Maggot/Bushwookie - Fellow server owner, DayZ engineer.
+	-
+	
+	I recommend heading to their YT/Discord/Twitch and checking out their informative tutorials.
+	This guide is only meant to act as an upto date concice version of all the information I have gathered.
+	while providing everything that may have been missed, and including all current files in 1 location.
+	-Thank you - Wabadahabada - Baashamzell - KG
+	-https://discord.gg/RzgHr74KZM
+	-https://github.com/Baashamzell/DayZ-map-files
+	
+	And a super special thanks to Bushwookie for helping me through hours/dayz of troubleshooting to get my first map
+			live on a server and the config.cpp which made it all possible. Thank You Sir.
+	Check out his server and the new Queensland map he has created. INSERT LINK HERE PLEASE LOL
+___________________________________________________________________________________________________
+Things to consider:
+	-Naming: If you type the wrong name in a reference location of a config file compared to what you
+		have in other locations, it may not work Example: MyName / myname
+	-Spaces: Sometimes spaces dont work, instead use an underscore Example: My Name / My_Name
+		spaces can break certain coding, so get used to using the underscore.
+		Also sometimes blank lines can break coding in files, try not to leave empty lines and learn
+			what kind of syntax can be used for comments and fill in your gaps.
+	-Mapmaking can be an extremely long project, being prepared beforehand with a vision and any
+		kind of reference material will make your job alot easier if going for the realism of a 
+		real location.  Or you just wing it and be creative and dynamic.
+____________________________________________________________________________________________________
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Coding lines you may need//////////////////////////////////////////
+
+Navmesh Generation:start DayZDiag_x64 -server -mod=@mybrandnewmap -startNavmeshDataServer -port=2302 -config=ServerDZNV.cfg(put this in navbat.bat file)
+modify the serverDZ file to point at your mission folder/ dayzOffline.MyBrandNewMap
+
+Bulldozer launch parameters:----------------------------------------
+Geb Tutorial:-buldozer -window -nopause -mod= -profiles=P:\Buldozer -name=Buldozer
+MatthewLongtime:-buldozer -name=Buldozer -window -exThreads=0 -noLogs -noAsserts -cfg=buldozer.cfg
+
+Setting up the DZ Launcher:
+Check Mod-and direct to your @mod path on your local HD
+Check Mission-and direct to your Missions folder on your local HD / dayzOffline.MyBrandNewMap
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Files you will need//////////////////////////////////////////
+
+	Can all be found here: https://github.com/Baashamzell/DayZ-map-files
+	
+	-Config.cpp							- will need to customize - provided
+	-Layers.cfg							- will need to customize - provided
+	-MapLegend.png						- A colour wheel-required- provided
+	-
+	-mybrandnewmap.wrp					- this will be generated later.
+	-Navmesh.nm							- this will be generated later.
+	
+------------For Navmesh Generation--------------------------
+	-init.c									- put in empty.mybrandnewmap folder
+	-navbat.bat								- put in the DayZ root folder with DayZDiag_x64
+	-serverDZNV								- change template to mission folder name
+
++++++++++++++++++++++++++++++++++Keep things organized+++++++++++++++++++++++++++++++++++++++++++++
+
+Unlike other mods, map making and generation creates ALOT of files, I like to make the folders I will need beforehand.
+here is a list of folders you may need, this is not required but I recommend it.  Just create the subfolders for all
+the programs you intend to use.
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Structure of the P: //////////////////////////////////////////
+
+	-mybrandnewmap				(This will be the primary folder located on your P: drive.)
+		-data								(holds ..... data)
+			-layers							(Holds textures and layers info)
+		-navmesh							(Contains your navmesh.nm file)
+			-navmesh.nm						(You will generate your own later)
+		-source								(contains all the land info for you map)
+			-landbuilder					(needed by Terrainbuilder)
+			-shapefiles						(needed by Terrainbuilder)
+			-TerrainBuilder					(Output folder for original files/saves)(Only if using this program)
+			-TerrainProcessor				(Output folder for original files/saves)(Only if using this program)
+			-L3DT							(Output folder for original files/saves)(Only if using this program)
+			-QGIS							(Output folder for original files/saves)(Only if using this program)
+		-world								(contains your config.cpp and your .wrp file.)
+			-config.cpp						(Provided basic copy)
+			-mybrandnewmap.wrp				(You will generate this later)
+		
+			
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Structure of the local HD (C:) //////////////////////////////////////////
+
+Navigate to the DayZ folder on your Harddrive(C:)  Should be in the ProgramFilesx86 location.
+	- First, create a file starting with @ symbol.
+		- @mybrandnewmap		(This will be the primary folder on your local hard drive.)
+		
+	- Inside this folder we will create 3 new folders
+		- Addons							- Where we put your .pbo when it is done
+		- Keys								- Where we put your mod keys after they are created
+		- ce								- This is where you will put your final dayzOffline.MyBrandNewMap
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Initial Files needed in Folders//////////////////////////////////////////
+
+In order to get started you have to make sure a few files are already in place.
+	
+	- Inside the (For the P) folder, you will find your project folder. Move this to the P: drive and rename it.
+		- this folder contains everything needed to get started, though you will need to change a few files.
+	- On your desktop (or wherever you like) make a work folder to keep reference and output files.
+	- In the DayZ root folder of your local HD, create a folder (@MyBrandNewMap)
+		- Here you will create 3 more folders, as listed in the section above.
+		
+	- You should now be ready to open up the file (Steps to make a dayz map) and begin your mapping journey.
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Overview of the whole process//////////////////////////////////////////	
+		
+	- Goto P: and create your folders and install required initial files.
+	- Begin with either:
+		- L3DT - If you are generating from scratch.
+		- QGIS - If you are wanting a real world location.
+	- Create all the data in either of those programs, save and export all files.
+	- Modify your config.cpp and layers.cfg
+	- Open up TerrainBuilder:
+		- Create a new project and save it on the P: drive in your created folder.
+		- Create a new Mapframe and follow the prompts. - Generate your terrain.
+		- Import all of your data from L3DT or QGIS. - Rebuild your terrain.
+		- Export everything and Generate your layers.
+		- Check your map in Bulldozer.
+		- Export your .wrp and modify config.cpp to that file.
+	- Open up Addon Builder and create your .pbo
+	- Open up Navmesh Generator and create one, or use another Navmesh.nm, put it in proper location.
+	- Create your public @folder for the mod and its info.
+	- Create your keys.
+	- Assemble everything in your @folder.
+	- Publish the map and put it on a server.
+--------------------------------Better info on final steps----------------------------------------------------------	
+	1 ) -After you have modified your terrain in TB/Buldozer.
+	2 ) -Export heightmap asc (replace your source asc file).
+	3 ) -Refresh heightmap from source(not doing this will erase the work you just did).
+	4 ) -Rebuild terrain.
+	5 ) -Save project.
+	6 ) -Export .WRP file.
+	7 ) -Replace the DZ road parts file with binerized parts.
+	8 ) -Change the .CPP file navmesh line to
+		 \DZ\worlds\chernarusplus\navmesh\navmesh.nm 
+	9 ) -Pack pbo.
+	10 ) -Generate new Navmesh.
+	11 ) -Change the .CPP file Navmesh line to your new navmesh. hmmmmm???? really?
+	12 ) -Make new keys.
+	12a) -Remove and keep your private key.
+	13 ) -Pack pbo again using pbo project.
+	13a) -If errors persist, use AddonBuilder.

@@ -1,0 +1,270 @@
+
+--------------------------------------============================----------------------------------------
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -------------------------- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> How to make a map for DayZ <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> A complete guide for maps. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -----Full Walkthrough----- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+--------------------------------------============================----------------------------------------
+
+
+
+=========================================Begin with the config.cpp===============================================
+
+	-using notepad++ open up the config.cpp and anywhere you find MyBrandNewMap - replace this with your mapname.
+	-fill out your name and a description of the map.
+	-save this file but do not close the tab as we will be coming back to this file often.
+	-open up the Layers.cfg and at the bottom there is a spot to change out your map name.
+	-save this file and close it.(you will only need this again if you add custom textures)
+	
+	-depending on your knowledge and the complexity of your map. this main config defines everything, from what textures
+		will be used, the time, etc.... take a look down the file and browse through reference material to get an idea
+		of what is possible with the right know how.
+
+=========================================Starting with L3DT(Creation Route)=========================================
+
+	-Open L3DT
+	-Create your new project
+		-Designable map				- Create a map through a series of sliders
+		-Blank Designable map		- Creates an empty map for you to edit manually (open ocean)
+		-Perlin heightmap			- Uses the 'Perlin noise algorithm' to create a "natural" looking map
+		-Fractal heightmap			- Uses fractals to create a heightmap?
+		-Blank heightfield			- Not sure?
+	
+	-Following the designable map 	(you do have options, but it is created randomly.)
+		-Choose your map scale		-set Hscale to 1 for FPS, 10 for RTS, and upto 500 for a flight sim.
+		-Design map size			-dont change, but can be used with research for tiny or very large maps.
+		-Map Parameters				-Sliders set to put variation into the generation.
+		-Calculation queue			(Various files to be generated for your terrain.)
+						Needed  - Design map			- The design map is a high-level map used by the design/inflate algorithm to generate the heightfield.
+															One pixel in the design map typically corresponds to a 64×64 tile of heightfield pixels.
+						Needed  - Heightfield			- The heightfield is simply a map of altitudes, which is usually rendered as a greyscale image where
+															black is the minimum altitude and white is the maximum altitude.
+								- Water map				- The water map is a map of water levels and types. This structure, while large in memory, allow us to
+															generate water bodies at different levels (ie. lakes) and non-flat water bodies such as rivers.
+						Needed  - Attributes map		- The attributes map describes the type of land in each pixel of the texture map or alpha maps (e.g.
+															rocks, sand, grassland, jungle, etc).
+						Needed  - Terrain normals		- The terrain normals map is a map of vectors perpendicular to the heightfield surface.
+															This map is used only for generating the light map.
+								- Light map				- The light map is just that - it is a map of the light intensity on the surface of the heightfield.
+															It is used when generating the texture map.
+								- Texture map			- The texture map is a map of the colour of the terrain heightfield surface, in RGB.
+					-2 Other map types-
+								- Salinity map			- The salinity map describes the amount and distribution of salt in the water-bodies and water-table
+															within the water map. This data is used to assign the location of land types in the attributes map
+								- Alpha map				- Alpha maps are images used for run-time texture blending (or 'texture splatting'), which is a
+															technique typically used in games to achieve high-resolution terrain detail.
+															
+	- Completing the wizard will start the generation process, and produce the files above which you selected. depending on the size this can take awhile.
+	
+	- This is where you want to do the most of the customization to your terrain, you can fine touch small details later.
+	
+	- Make any modifications and export each map to the L3TD folder you previously made.
+		-Export the files AS THESE file names....
+		
+		- Design map		- 
+		- Heightfield		- heightmap (saved as ASC or XYZ) XYZ seems to work with custom georeference coordinates and ASC did not.
+		- Attributes		- sat_lco (saved as BMP)
+		- Terrain Normals	- normal_lco (saved as BMP)
+		
+===========================================sFlora program(recomended)==============================================
+
+	- Use a satmap with or without OSM data to generate vegetation automatically.
+	- Grampa's Tutorial https://www.youtube.com/watch?v=Ik-P2Psr-oQ&t=5878s
+	- can I use sflora to place buildings?   umm Maybe, still playing with that.
+	
+================================TerrainBuilder==========================================
+	
+	- Start out in TerrainBuilder from the DayZ Tools Suite.
+		- Create a new folder on your P: drive with whatever name you want
+		- Create a new Mapframe
+		- Name your new map and direct it to the folder you just created.
+			- Click the Create subfolders button, this will create most of the folders you need.
+				-data								(DayZ basefolder)
+				-source								(DayZ basefolder)
+					-landbuilder					(needed by Terrainbuilder)
+					-shapefiles						(needed by Terrainbuilder)
+					-TerrainBuilder					(Output folder for original files/saves)(Only if using this program)
+					
+	- Go ahead and start with adding a Mapframe.
+	- Your first box is the UTM zone selection, (Click the ... to access the map) this is your timezone for the map, and if you have a tropical map vs a desert map... 
+	  this has to be mostly correct.  Determining your Zone is easy(east/west), but the program uses C thru X for the (north/south) the real world only uses N/S for the 
+	  2 separate hemispheres, so if you are making a map from a georeference and want things to be accurate, you may have to take a couple tries at it. (you cant zoom in).
+	- Next is the Mapframe properties, You will make a name for the project, and determine where all the files are saved. Here you can also auto-create your needed
+	  subfolders, if you had not previously done this.  Finally we come to the Easting and Northing..Remember the box from the map, the numbers you put in here, will
+	  determine the position of your map inside THAT box.  This is very important when you import a heightmap from QGIS or other georeference software.
+		The limits are the boundaries of the box you selected on the map. this all should make a bit more sense in a minute.
+	- Generate your terrain for the first time in the Properties window.	
+	- Import your previously created files from QGIS or L3DT, and rebuild your terrain from the properties window.
+	- Make sure all your files and filepaths are set and in place.
+	- Export all your files and Generate your layers in the Properties window.
+	- Load up Bulldozer and verify the initial condition of the map.
+		- This is where you can make more accurate terrain modifications.
+		- If you make any changes, rebuild your terrain, and re-Export your layers in the properties window.
+	- Goto File>Export>.wrp and name your file and location.
+	- Modify your config.cpp to match the name and location for your .wrp
+
+===========================================Terrain Processor========================================================
+
+	- Useful to transform your terrain/place objects with predefined shapes and layers.
+	- 
+
+===========================================Packing it up========================================================
+
+	- Prepare for the pbo creation.
+	- A navmesh needs to be in place and referenced in your config.cpp(you will generate one for YOUR map soon)
+	- Your .wrp needs to be in place and referenced in your config.cpp
+
+===========================================Addon Builder========================================================
+
+	- Open up the Addon Builder in DayZ Tools
+	- Set the names and directories appropriately.
+	- In options-List of files to copy directly, paste the following line
+	*.emat;*.edds;*.ptc;*.c;*.imageset;*.layout;*.ogg;*.xml;*.nm,*.paa,*.png,*.rvmat,*.wrp
+	- double check all your settings.
+	- Pack your .pbo
+	- Hopefully you have no errors.
+
+===========================================Navmesh Generator========================================================
+
+	- Open up Navmesh Generator in DayZ Tools
+	- Modify your config.cpp from your P: source files
+	- Goto your local DayZ folder and add the ServerDZNV.cfg
+	- Goto your local DayZ folder into the mpmissions, make sure a copy of "dayzOffline.chernarusplus" is in this folder
+	- Modify the ServerDZNV.cfg to the empty.mybrandnewmap folder you just created
+	- Create a new txt file called navbat.bat and paste in the following line:
+		start DayZDiag_x64 -server -mod=@mybrandnewmap -startNavmeshDataServer -port=2302 -config=ServerDZNV.cfg
+	- In the local root folder you should now have
+		-ServerDZNV.cfg pointing to your missions folder
+		-navbat.bat with the pasted code pointing to your @mybrandnewmap Addons folder. which contains your .pbo
+	- Double click the navbat.bat, this will lauch a server for your map. Wait for connection
+	- Load up NavMeshGenerator, this opens a folder, right click on the NavMeshGenerator.exe and run as Administrator.
+	- Generator>Connect Data Server. Hit OK  wait for the connection.
+	- Generator>Start Generating. this can take some time to generate depending on the size.
+	- File>Save>Navmesh, then goto this location and add the extention .nm (Navmesh.nm)
+	- Modify your config.cpp refering to the new navmesh.
+	- Repack your .pbo
+
+===========================================CE Tool================================================================
+
+	- At this point you should have a completed terrain, with all roads, buildings, vegetation in place. Your map is
+		now about 85% complete, but now comes the task of setting up a mission file for your specific map.
+	- Included with this pack is a folder (CeEditor_MyBrandNewMap) Bring this to your Reference folder.
+	- Open up the folder and you can replace the satmap with your own.
+	- Open up the areaflags.xml and change the map line to your new map file.
+	- The Layers folder has been modified so all layers are blank.
+	- The areaflags.xml has been reduced to its minimum for a new map. (I recommend keeping and using the colour territories
+		used within this file. Using new colours will require more coding I am as yet unfamiliar with)
+	- Open up the Economy Editor in the DayZ tools suite. Goto File>Load> and load the .xml file from that folder.
+	- It will take a sec to load all the layers, but begin with the left column.
+		- Go down the list and just paint in the areas where you need them.
+		- On the right side you will find the Spawn AI section for territories spawns.
+	- When completed Goto File>Save and Export All.
+	- This will generate new files in your (CeEditor_MyBrandNewMap) folder.
+		- Move the areaflag.map to your dayzOffline.MyBrandNewMap, put it in with the init.c and cfg files.
+		- In the territories folder you will find all your newly created territory files, move these to the
+			env folder in your dayzOffline.MyBrandNewMap.
+
+===========================================Initialize Economy================================================================
+
+	- Now you need the file (CE Generation info.
+	- From your dayzOffline.MyBrandNewMap (copy and save the init.c file, youll need this later.)
+	- Open that init.c file and replace all the code with the first section of the (CE Generation info)
+	- Now you want to open up the dayz launcher. Goto parameters
+		- Check Mod and direct to your @MyBrandNewMap on your local HD
+		- Check Mission and direct to the mission folder on your local HD (dayzOffline.MyBrandNewMap)
+		- Check Command Line and put: DayZDiag_x64.exe -window -nopause -mod=@YourModFolder -mission=dayzOffline.MyBrandNewMap
+	- Make sure you have no other mods installed and press play.
+	- Load into your world and run around, make sure things are spawning here and there. check everything from loot to ZMB to animals.
+	- Close the game.
+	- Open your (dayzOffline.MyBrandNewMap) and delete the new 'storage' folder
+	- Open the init.c and replace the whole thing with the 2nd section of (CE Generation info)
+	- Save the file, load up dayz and play again.
+	- Same thing, run around, give it a few minutes, then log out.
+	- This creates some new files for food trees, and your POS file.
+	
+	- Congratulations, other than fine polishing your server files and events. all you have left is to publish your new map.
+
+===========================================DS Utils================================================================
+
+	- Open up DS Utils in DayZ Tools.
+	- This is where you are going to create the keys for your map.
+	- Set the directories and create your keys.
+	- Put your private bikey in a safe place, (this is only for you.)
+	- Put your public bikey in the Keys folder of your @mybrandnewmap of the DayZ root folder.
+
+===========================================Test it on a local server===========================================================
+
+	- You have 2 options, though offline mode is easier to setup and get into your map, there are some issues.
+	- Open up DayZ launcher-Parameters-All Parameters- In the Advanced section check the Mission line, and paste the following line.
+		C:\Program Files (x86)\Steam\steamapps\common\DayZ\Missions\DayZCommunityOfflineMode.MyBrandNewMap
+	- Now rename the end of that line to your map name.
+	- Goto your DayZ root folder-Missions(NOT mpmissions) and put your (DayZCommunityOfflineMode.MyBrandNewMap) file there.
+	- Make sure that folder has your maps name at the end.
+	- Back to the DZ Launcher-Mods, and click on Local Mod at the top. Direct to your @MyBrandNewMap in the DZ root folder.
+	- Play your new map for the first time....
+	- How to setup offline mode. https://www.youtube.com/watch?v=27KEIpExhKM
+	
+	- Your other option is a local server. This is not a difficult thing to set up, but should be your choice as you can setup
+		"test environments" that allow you to tweak different values. and you will get faster results than a cloud server.	
+	- How to setup local server. https://www.youtube.com/watch?v=facj4MYAjpg
+
+	- Finally we have the live server, which you have to publish the map first(privately if youd like)
+		and then subscribe and install like any other map mod, on your hosted/dedicated server.
+	- You can use any vanilla server files that come in the offline folder, but you will have everything behaving and spawning
+		as it would in chernarus, best thing is to modify the events.xml file and turn off all events for now, while you continue
+		work on your map. There is alot of data that makes a server run, especially in the economy. Below is a list of thier purpose.
+		
+		mapgroupproto - building proxies for loot spawns [[Dont Change] or loot will not spawn in buildings.]
+		mapgrouppos - building spawn locations for loot [this is where you add locations for new buildings.]
+		mapgroupdirt - ???
+		mapgroupcluster - vegetation locations for (edible?) spawns [same as mapgrouppos but for plants?]
+		mapclusterproto - vegetation proxies for (edible?) spawns [[Dont Change]similar to mapgroupproto]
+		cfgweather - the weather file/if enabled
+		cfgspawnabletypes - the condition of your loot
+		cfgrandompresets - the condition of and what gear can spawn on or in your loot
+		cfgplayerspawnpoints - player spawn locations
+		cfglimitsdefinitionuser - custom and combo definitions
+		cfglimitsdefinition - common definitions
+		cfgignorelist - types list to ignore (for something?)
+		cfgeventspawns - event spawn locations/non living (can talk to the eventgroups.xml)
+		cfgeventgroups - spawn proxies for dynamic events trains/convoys
+		cfgenvironment - bahavioral info for livings
+		cfgeconomycore - main economy file, use this to define various economy files.
+		AreaFlags - not sure??? possible to do with Tiers for loot.
+		cfgEffectArea - contaminated zones, and other affected areas.
+		cfggameplay - world dynamics (stamina, temperature, server additions, player loadouts)
+		init.c - startup parameters of the server???
+		cfgundergroundtriggers - triggers info (make stuff dark, play sounds)
+		
+		types.xml - tells the game how much and in what variation to spawn loot, needs an entry for any item in game.
+		events.xml - governs all the events of the server (can talk to the eventspawns.xml)
+		globals.xml - global configuration of various server limits and behaviours.
+		messages.xml - announce messages in your server using countdowns n such.
+		economy.xml - tells the server what kind of actions to take on loot,playerinventory,vehicles
+		
+		All territory files govern anything 'living' that will spawn in the game.
+			- this file is used instead of the cfgeventspawns. for the associated creature.
+			
+-----------------------------------------------Finishing up-------------------------------------------------------------
+
+	- Publish your @mybrandnewmap.
+	- You can decide to keep this private when you upload it to Steam, but to put on a server with freinds you should make
+		it public.  This is your original piece of work, and you get to set the rules. If you dont want your map modified,
+		that is certainly your right.  But you will have to keep track of all that.
+
+=========================================================Starting with QGIS(Real Location Route)=================================
+
+	- Start out in TerrainBuilder from the DayZ Tools Suite.
+		- Create a new folder on your P: drive with whatever name you want
+		- Create a new Mapframe
+		- Name your new map and direct it to the folder you just created.
+			- Click the Create subfolders button, this will create most of the folders you need.
+				-data								-Created	(DayZ basefolder)
+				-source								-Created	(DayZ basefolder)
+					-landbuilder					-Created	(needed by Terrainbuilder)
+					-shapefiles						-Created	(needed by Terrainbuilder)
+					-TerrainBuilder					-Created	(Output folder for original files/saves)(Only if using this program)
+					-TerrainProcessor				-Not Created(You can add these folders for thier output files)
+					-QGIS							-Not Created(You can add these folders for thier output files)
+					
+-------------------------------------------------------------------------------------------------------------------------------

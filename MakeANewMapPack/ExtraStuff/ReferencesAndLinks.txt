@@ -1,0 +1,53 @@
+
+
+-----------------------------------Programs and associated Guides------------------------------------
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Tools & Software needed// with wiki links ////////////////////////////////////////
+
+	-Good text/coding editor. I use notepad++, but you need something better than notepad and not like MS Word.
+		- Notepad++ https://notepad-plus-plus.org/downloads/v8.6.2/     - Notepad++ Guide  https://npp-user-manual.org/
+		
+	-L3DT - Land and Layer generator with built in 3D modeller. (Full Wiki and guide online) 
+		- L3DT Download  http://www.bundysoft.com/L3DT/downloads/standard.php
+		- L3DT Guide 	 http://www.bundysoft.com/docs/doku.php?id=l3dt:userguide
+		
+	-DayZ Tools - A suite of tools including most of what you need to make maps and mods.
+		- This is available in the steam library when you buy DayZ.
+		- Bohemia Guides:	https://community.bistudio.com/wiki/DayZ:Modding_Basics
+		- Bohemia Guides:	https://community.bistudio.com/wiki/DayZ:Modding_Structure#PBO_structure
+		- Bohemia Guides:	https://dayzmodding.dev/en/TheConfigCPP
+		- Bohemia Guides:	https://community.bistudio.com/wiki/CfgVehicles_Config_Reference
+		- Bohemia Guides:	https://community.bistudio.com/wiki/Class_Inheritance
+		- Main Terrain Editing:	https://community.bistudio.com/wiki/Category:DayZ:_Terrain_Editing
+		- Open Source Samples:	https://dayzmodding.dev/en/Mod-Code-Bases
+		- Bohemia Interactive Samples:	https://github.com/BohemiaInteractive/DayZ-Samples/tree/master
+		
+		- Navmesh Generation:	https://community.bistudio.com/wiki/DayZ:Generating_navigation_mesh#Game_config
+		- CE Editor:	https://forums.dayz.com/topic/245334-ce-editor-the-complete-guide/
+		- Generating Economy:	https://community.bistudio.com/wiki/DayZ:Central_Economy_setup_for_custom_terrains
+		
+		
+	-PBOProject - An alternative to DZ Tools Addon Builder. Many files are needed to download for all its features.
+		(will pack your files into a usable .pbo) https://wiki.mikero.tools/en/tools/pboproject
+		- This guide will help you through the install.		https://www.youtube.com/watch?v=TglUj7ekkdo
+		
+	-Image Editor - GIMP or Photoshop type program with layers and tools. (not MS paint) https://docs.gimp.org/2.10/en/
+	
+------------------Other optional software:
+
+	-QGIS - used for generating real world locations as maps. https://qgis.org/en/site/forusers/download.html
+		- QGIS Guide:		https://docs.qgis.org/3.28/en/docs/gentle_gis_introduction/index.html
+		
+	-GGIS addon - GameTerrainTools - an addon for the QGIS program. https://gitlab.com/Adanteh/qgis-game-terrains
+		- TerrainTools Guide:		https://gitlab.com/Adanteh/qgis-game-terrains/-/wikis/home
+		
+	-Google Earth - useful for visualization, I use it for quick reference and elevation change.
+		https://www.google.com/earth/about/versions/
+		
+----------------------------------------- Tutorials Ive Learned From -------------------------------------------
+
+	- Big Grampa DayZ Channel
+		- https://www.youtube.com/watch?v=9KgE25NZ0lc
+		- https://www.youtube.com/watch?v=Ik-P2Psr-oQ
+		- https://www.youtube.com/watch?v=UMnm8A8zsDw&t
+	
